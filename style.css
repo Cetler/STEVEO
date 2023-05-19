@@ -913,11 +913,26 @@ body.light-mode .video-bg:before {
 }
 
 .popup-content {
+  position: relative;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.popup-content a {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+
+}
+
+.popup-content a:hover {
+  opacity: 1;
 }
 
 .close-button {
@@ -971,4 +986,10 @@ nav a:hover {
   filter: blur(2px);
   pointer-events: none;
   user-select: none;
+}
+.popup-content a {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  display: none;
 }

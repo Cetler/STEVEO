@@ -17,6 +17,7 @@ window.onload = function() {
           var modal = document.getElementById(this.getAttribute('data-modal'));
           modal.style.display = "block";
           contentToBlur.classList.add('blurred');  // Add the 'blurred' class to the content to blur
+          modal.getElementsByClassName('watch-live')[0].style.display = "block";
       }
   }
 
@@ -25,6 +26,8 @@ window.onload = function() {
       spans[i].onclick = function() {
           this.parentElement.parentElement.style.display = "none";
           contentToBlur.classList.remove('blurred');  // Remove the 'blurred' class from the content to blur
+          this.parentElement.getElementsByClassName('watch-live')[0].style.display = "none";
+
       }
   }
 
@@ -33,6 +36,8 @@ window.onload = function() {
       if (event.target.className === 'popup') {
           event.target.style.display = "none";
           contentToBlur.classList.remove('blurred');  // Remove the 'blurred' class from the content to blur
+          event.target.getElementsByClassName('watch-live')[0].style.display = "none";
+
       }
   }
 }
