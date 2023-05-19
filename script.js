@@ -1,73 +1,38 @@
-$(function () {
- $(".menu-link").click(function () {
-  $(".menu-link").removeClass("is-active");
-  $(this).addClass("is-active");
- });
-});
+window.onload = function() {
+  // Get the content to blur
+  var contentToBlur = document.getElementById('content-to-blur');
 
-$(function () {
- $(".main-header-link").click(function () {
-  $(".main-header-link").removeClass("is-active");
-  $(this).addClass("is-active");
- });
-});
+  // Get all the modals
+  var modals = document.getElementsByClassName('popup');
 
-const dropdowns = document.querySelectorAll(".dropdown");
-dropdowns.forEach((dropdown) => {
- dropdown.addEventListener("click", (e) => {
-  e.stopPropagation();
-  dropdowns.forEach((c) => c.classList.remove("is-active"));
-  dropdown.classList.add("is-active");
- });
-});
+  // Get all the buttons that open a modal
+  var btns = document.getElementsByClassName("view-more");
 
-$(".search-bar input")
- .focus(function () {
-  $(".header").addClass("wide");
- })
- .blur(function () {
-  $(".header").removeClass("wide");
- });
+  // Get all the <span> elements that close the modals
+  var spans = document.getElementsByClassName("close-button");
 
-$(document).click(function (e) {
- var container = $(".status-button");
- var dd = $(".dropdown");
- if (!container.is(e.target) && container.has(e.target).length === 0) {
-  dd.removeClass("is-active");
- }
-});
-
-$(function () {
- $(".dropdown").on("click", function (e) {
-  $(".content-wrapper").addClass("overlay");
-  e.stopPropagation();
- });
- $(document).on("click", function (e) {
-  if ($(e.target).is(".dropdown") === false) {
-   $(".content-wrapper").removeClass("overlay");
+  // When the user clicks the button, open the corresponding modal 
+  for (let i = 0; i < btns.length; i++) {
+      btns[i].onclick = function() {
+          var modal = document.getElementById(this.getAttribute('data-modal'));
+          modal.style.display = "block";
+          contentToBlur.classList.add('blurred');  // Add the 'blurred' class to the content to blur
+      }
   }
- });
-});
 
-$(function () {
- $(".status-button:not(.open)").on("click", function (e) {
-  $(".overlay-app").addClass("is-active");
- });
- $(".pop-up .close").click(function () {
-  $(".overlay-app").removeClass("is-active");
- });
-});
+  // When the user clicks on <span> (x), close the modal
+  for (let i = 0; i < spans.length; i++) {
+      spans[i].onclick = function() {
+          this.parentElement.parentElement.style.display = "none";
+          contentToBlur.classList.remove('blurred');  // Remove the 'blurred' class from the content to blur
+      }
+  }
 
-$(".status-button:not(.open)").click(function () {
- $(".pop-up").addClass("visible");
-});
-
-$(".pop-up .close").click(function () {
- $(".pop-up").removeClass("visible");
-});
-
-const toggleButton = document.querySelector('.dark-light');
-
-toggleButton.addEventListener('click', () => {
-  document.body.classList.toggle('light-mode');
-});
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target.className === 'popup') {
+          event.target.style.display = "none";
+          contentToBlur.classList.remove('blurred');  // Remove the 'blurred' class from the content to blur
+      }
+  }
+}
